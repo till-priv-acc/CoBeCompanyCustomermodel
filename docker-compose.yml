@@ -1,0 +1,24 @@
+services:
+  api:
+    build:
+      context: ./backend/CompanyProduct.Api
+    container_name: companyproduct-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=${POSTGRES_DATABASE};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+
+  postgres:
+    image: postgres:17
+    container_name: companyproduct-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
