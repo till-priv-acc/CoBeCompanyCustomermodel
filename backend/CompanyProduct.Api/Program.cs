@@ -2,6 +2,7 @@ using CompanyProduct.Api.Auth;
 using CompanyProduct.Api.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using CompanyProduct.Api.Owners;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,6 +54,9 @@ app.UseAuthorization();
 
 // Admin authentication
 app.MapOwnerAuthEndpoints();
+
+// Owner/Admin endpoints
+app.MapOwnerEndpoints();
 
 // Database health check
 app.MapGet("/health/database", async (AppDbContext db) =>
