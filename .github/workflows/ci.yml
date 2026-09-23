@@ -16,16 +16,21 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  validate:
-    name: Validate Repository
+  backend:
+    name: Build Backend
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: CI information
-        run: |
-          echo "CI pipeline is running."
-          echo "Branch: ${{ github.ref }}"
-          echo "Commit: ${{ github.sha }}"
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore backend/CompanyProduct.Api/CompanyProduct.Api.csproj
+
+      - name: Build backend
+        run: dotnet build backend/CompanyProduct.Api/CompanyProduct.Api.csproj --configuration Release --no-restore
