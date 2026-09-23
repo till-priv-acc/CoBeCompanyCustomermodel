@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "owners.schema.json",
+  "title": "Owners",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer",
+      "readOnly": true
+    },
+    "username": {
+      "type": "string",
+      "minLength": 1
+    },
+    "password_hash": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "username",
+    "password_hash"
+  ]
+}
